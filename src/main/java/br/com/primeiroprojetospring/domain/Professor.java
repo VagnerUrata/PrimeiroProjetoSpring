@@ -20,7 +20,7 @@ public class Professor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "nomeProfessor")
+	@Column(name = "NOME_PROFESSOR")
 	private String nome;
 
 	public Integer getId() {
