@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http:www.thymeleaf.org">
 <head>
-<title>Listagem de Chaves</title>
+<title>Listagem de Fabricantes</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet"></link>
@@ -13,7 +13,7 @@
 	<div class="container">
 		<div class="panel-default">
 			<div class="text-center">
-				<h1 class="h4 text-gray-900 mb-4">Listagem de Chaves</h1>
+				<h1 class="h4 text-gray-900 mb-4">Listagem de Fabricantes</h1>
 			</div>
 
 			<div class="panel-body">
@@ -22,18 +22,20 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>CODIGO</th>
+								<th>NOME</th>
+								<th>PAIS</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="chave :${chave}">
-								<td th:text="${chave.id}"></td>
-								<td th:text="${chave.codigo}"></td>
+							<tr th:each="fabricante :${fabricante}">
+								<td th:text="${fabricante.id}"></td>
+								<td th:text="${fabricante.nome}"></td>
+								<td th:text="${fabricante.pais}"></td>
 								<td>
 									<div class="btn-group pull-right">
-										<a class="btn btn-sm btn-primary" th:href="@{/chave/alterar/{idChave}(idChave=${chave.id})}">ALTERAR</a>
-										<a class="btn delete btn-sm btn-danger" th:href="@{/chave/excluir/{idChave}(idChave=${chave.id})}">EXCLUIR</a>
+										<a class="btn btn-sm btn-primary" th:href="@{/fabricante/alterar/{idFabricante}(idFabricante=${fabricante.id})}">ALTERAR</a>
+										<a class="btn delete btn-sm btn-danger" th:href="@{/fabricante/excluir/{idFabricante}(idFabricante=${fabricante.id})}">EXCLUIR</a>
 									</div>
 								</td>
 							</tr>
@@ -42,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		<a class="btn tbn-sm btn-success" th:href="@{/chave/cadastrar}">CADASTRAR NOVA CHAVE</a>
+		<a class="btn tbn-sm btn-success" th:href="@{/fabricante/cadastrar}">CADASTRAR NOVO FABRICANTE</a>
 	</div>
 
 </body>

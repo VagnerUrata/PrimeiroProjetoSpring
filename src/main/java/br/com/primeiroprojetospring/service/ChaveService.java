@@ -15,33 +15,28 @@ public class ChaveService {
 
 	@Autowired
 	private ChaveRepository chaveRepository;
-
+	
 	public List<Chave> buscarTodasChaves() {
 		return chaveRepository.findAll();
-
 	}
 
 	public Chave salvar(Chave chave) {
 		return chaveRepository.save(chave);
-
 	}
 
-	public Chave buscarPorID(Integer id) throws ObjectNotFoundException {
+	public Chave buscarChaveID(Integer id) {
 		Optional<Chave> chave = chaveRepository.findById(id);
-		return chave.orElseThrow(() -> new ObjectNotFoundException(new Chave(), "Chave não encontrada. od: " + id));
-
+		return chave.orElseThrow(() -> new ObjectNotFoundException(new Chave(), "Chave não encontrada. Id: " + id));
 	}
 
 	public Chave salvarAlteracao(Chave chaveAlterada) throws ObjectNotFoundException {
-		Chave chave = buscarPorID(chaveAlterada.getId());
+		Chave chave = buscarChaveID(chaveAlterada.getId());
 		chave.setId(chaveAlterada.getId());
 		chave.setCodigo(chaveAlterada.getCodigo());
 		return salvar(chave);
-
 	}
 
 	public void excluir(Integer id) {
 		chaveRepository.deleteById(id);
-
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.primeiroprojetospring.domain.Carro;
 import br.com.primeiroprojetospring.repository.CarroRepository;
 
+
 @Service
 public class CarroService {
 
@@ -36,6 +37,9 @@ public class CarroService {
 		Carro carro = buscarPorID(carroAlterado.getId());
 		carro.setId(carroAlterado.getId());
 		carro.setModelo(carroAlterado.getModelo());
+		carro.setChaveCarro(carro.getChaveCarro());
+		carro.setDocumentoCarro(carro.getDocumentoCarro());
+		carro.setAcessorios(carroAlterado.getAcessorios());
 		return salvar(carro);
 
 	}

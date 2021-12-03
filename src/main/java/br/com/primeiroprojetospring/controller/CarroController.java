@@ -9,16 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.primeiroprojetospring.domain.Carro;
+import br.com.primeiroprojetospring.service.AcessorioService;
 import br.com.primeiroprojetospring.service.CarroService;
 import br.com.primeiroprojetospring.service.ChaveService;
+import br.com.primeiroprojetospring.service.DocumentoService;
 
 @Controller
 @RequestMapping("carro")
-public class CarroCotroller {
+public class CarroController {
 
 	@Autowired
 	private CarroService carroService;
+	
+	@Autowired
 	private ChaveService chaveService;
+	
+	@Autowired
+	private DocumentoService documentoService;
+	
+	@Autowired
+	private AcessorioService acessorioService;
 
 	@GetMapping("/listarCarros")
 	public ModelAndView listaTodosCarros() {
@@ -33,6 +43,8 @@ public class CarroCotroller {
 		ModelAndView mView = new ModelAndView("carro/cadastraCarro");
 		mView.addObject("carro", new Carro());
 		mView.addObject("chaves", chaveService.buscarTodasChaves());
+		mView.addObject("documentos", documentoService.buscarTodosDocumentos());
+		mView.addObject("acessorios", acessorioService.buscarTodosAcessorios());
 		return mView;
 	}
 
@@ -48,6 +60,8 @@ public class CarroCotroller {
 		ModelAndView mView = new ModelAndView("carro/alteraCarro");
 		mView.addObject("carro", carroService.buscarPorID(idCarro));
 		mView.addObject("chaves", chaveService.buscarTodasChaves());
+		mView.addObject("documentos", documentoService.buscarTodosDocumentos());
+		mView.addObject("acessorios", acessorioService.buscarTodosAcessorios());
 		return mView;
 
 	}
