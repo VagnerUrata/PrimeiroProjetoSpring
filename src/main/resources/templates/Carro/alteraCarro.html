@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http:www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset-8" />
-<meta name="viewport" content="widith=device-widith" />
-<title>Alteração de Carro</title>
+<title>Alterar Carro</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet"></link>
@@ -13,9 +10,10 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 	<div class="container">
 		<div class="panel-heading" align="center">
-			<strong>ALTERAR CARRO</strong>
+			<strong>ALTERAÇÃO DE CARRO</strong>
 		</div>
 
 		<div class="panel-body border">
@@ -24,20 +22,25 @@
 				<div class="form-group">
 					<fieldset>
 						<div class="form-group row">
-							<div class="form-group row">
-								<label>MODELO</label> <input type="text"
-									class="form-control input-sm" th:field="*{modelo}"
-									autofocus="autofocus" placeholder="Informe o nome"
-									maxlength="50" />
-							</div>
-							<div class="form-group row">
-								<label>CHAVE</label> <select class="form-control"
-									th:field="*{chaveCarro}">
-									<option value="">Selecione a chave</option>
-									<option th:each="chave :${chaves}" th:value="${chave.id}"
-										th:text="${chave.id}"></option>
-								</select>
-							</div>
+							<label>ID</label> <input type="text"
+								class="form-control input-sm" id="id" th:field="*{id}"
+								readOnly="readonly" />
+						</div>
+						<div class="form-group row">
+							<label>MODELO</label> <input type="text"
+								class="form-control input-sm" th:field="*{modelo}"
+								autofocus="autofocus" placeholder="Informe o nome"
+								maxlength="50" />
+						</div>
+						<div class="form-group row">
+							<label>CHAVE</label> <select class="form-control"
+								th:field="*{chaveCarro}">
+								<option value="">Selecione a chave</option>
+								<option th:each="chave :${chaves}" th:value="${chave.id}"
+									th:text="${chave.id}"></option>
+							</select>
+						</div>
+						<div class="form-group row">
 							<label>DOCUMENTO</label> <select class="form-control"
 								th:field="*{documentoCarro}">
 								<option value="">Selecione o documento</option>
@@ -45,25 +48,30 @@
 									th:value="${documento.id}" th:text="${documento.id}"></option>
 							</select>
 						</div>
+
 						<div class="form-group row">
-							<label>ACESSÓRIOS</label>
-							<div th:each="acessorio : ${acessorios}">
-								<input type="checkbox" th:field="{acessorios}"
-									th:value="${acessorio.id}" /> <label th:for="{('acessorios')}"
-									th:text="${acessorio.nome}"></label>
-							</div>
+							<label>FABRICANTE</label> <select class="form-control"
+								th:field="*{fabricanteCarro}">
+								<option value="">Selecione o fabricante</option>
+								<option th:each="fabricante :${fabricantes}"
+									th:value="${fabricante.id}" th:text="${fabricante.id}"></option>
+							</select>
 						</div>
 
-						</select>
+						<div class="form-group row">
+							<label>ACESSORIO</label>
+							<div th:each="acessorio : ${acessorios}">
+								<input type="checkbox" th:field="*{acessorios}"
+									th:value="${acessorio.id}" /> <label
+									th:for="${('acessorios')}" th:text="${acessorio.nome}"></label>
+							</div>
+						</div>
+					</fieldset>
 				</div>
-				</fieldset>
+				<div align="center">
+					<button type="submit" class="btn btn-sm btn-success">SALVAR</button>
+					<a th:href="@{/carro/listaCarros}" class="btn btn-sm btn-default">CANCELAR</a>
+				</div>
+			</form>
 		</div>
-		<div align="center">
-			<button type="submit" class="btn btn-sm btn-success">SALVAR</button>
-			<a th:href="@{/carro/listarCarros}" class="btn btn-sm btn-default">CANCELAR</a>
-		</div>
-		</form>
 	</div>
-	</div>
-</body>
-</html>

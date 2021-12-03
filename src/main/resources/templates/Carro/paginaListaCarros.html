@@ -6,7 +6,8 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet"></link>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -18,36 +19,45 @@
 
 			<div class="panel-body">
 				<div class="table-responsive">
-					<table class="table table-sm table-striped table-havertable-bordered">
+					<table
+						class="table table-sm table-striped table-havertable-bordered">
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>MODELO</th>
 								<th>CHAVE</th>
 								<th>DOCUMENTO</th>
+								<th>FABRICANTE</th>
 								<th>ACESSÓRIOS</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="carro :${carro}">
+							<tr th:each="carro :${carros}">
 								<td th:text="${carro.id}"></td>
 								<td th:text="${carro.modelo}"></td>
 								<td th:text="${carro.chaveCarro.id}"></td>
-								<td th:text="${carro.documentoCarro.id}"></td>
+								<td th:text="${carro.documentoCarro.nome}"></td>
+								<td th:text="${carro.fabricanteCarro.nome}"></td>
+								<td>
+								<span th:each="acessorio: ${carro.acessorios}"
+									th:text="${'' + acessorio.nome + '/'}"></span>
+									</td>
 								<td>
 									<div class="btn-group pull-right">
-										<a class="btn btn-sm btn-primary" th:href="@{/carro/alterar/{idCarro}(idCarro=${carro.id})}">ALTERAR</a>
-										<a class="btn delete btn-sm btn-danger" th:href="@{/carro/excluir/{idCarro}(idCarro=${carro.id})}">EXCLUIR</a>
+										<a class="btn btn-sm btn-primary"
+											th:href="@{/carro/alterar/{idCarro}(idCarro=${carro.id})}">ALTERAR</a>
+										<a class="btn delete btn-sm btn-danger"
+											th:href="@{/carro/excluir/{idCarro}(idCarro=${carro.id})}">EXCLUIR</a>
 									</div>
-								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-	<a class="btn tbn-sm btn-success" th:href="@{/carro/cadastrar}">CADASTRAR NOVO CARRO</a>
+		<a class="btn btn-sm btn-success" th:href="@{/carro/cadastrar}">CADASTRAR
+			NOVO CARRO</a>
 	</div>
 
 </body>
