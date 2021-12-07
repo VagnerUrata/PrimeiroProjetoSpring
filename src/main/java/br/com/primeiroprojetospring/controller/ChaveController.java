@@ -15,6 +15,7 @@ import br.com.primeiroprojetospring.service.ChaveService;
 @RequestMapping("chave")
 public class ChaveController {
 
+	// ff18af66c2d97ab42ad2308d7f884cd6ee3f1bb2
 	@Autowired
 	private ChaveService chaveService;
 
