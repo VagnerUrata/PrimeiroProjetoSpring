@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +25,31 @@ public class AlunoController {
 
 	@Autowired
 	private AlunoService alunoService;
-	
+
 	@GetMapping("/find/{id}")
-	public ResponseEntity<Aluno> find(@PathVariable("id") Integer id){
+	public ResponseEntity<Aluno> find(@PathVariable("id") Integer id) {
 		return ResponseEntity.ok().body(alunoService.buscarPorID(id));
 	}
-	
+
+	@DeleteMapping("/excluirAluno/{id}")
+	public ResponseEntity<Void> excluir(Integer id) {
+		alunoService.excluir(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/findByNome/{nome}")
+	public ResponseEntity<List<Aluno>> findByNome(@PathVariable("nome") String nome) {
+		return ResponseEntity.ok().body(alunoService.buscaPorNome(nome));
+	}
+
+	@GetMapping("/listarAlunos")
+	public ModelAndView listaTodosAlunos() {
+		ModelAndView mView = new ModelAndView("aluno/paginaListaAlunos");
+		mView.addObject("alunos", alunoService.buscarTodosAlunos());
+		return mView;
+
+	}
+
 	@PostMapping("/cadastrarAluno")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Aluno> cadastrarAlunoAPI(@RequestBody Aluno aluno) {
@@ -40,19 +60,11 @@ public class AlunoController {
 	public ResponseEntity<List<Aluno>> devolveTodosAlunos() {
 		return ResponseEntity.ok().body(alunoService.buscarTodosAlunos());
 	}
-	
+
 	@PutMapping("/alteraAluno")
 	public ResponseEntity<Aluno> alteraAluno(@RequestBody Aluno aluno) {
 		Aluno novoAluno = alunoService.salvarAlteracao(aluno);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoAluno);
-	}
-	
-	@GetMapping("/listarAlunos")
-	public ModelAndView listaTodosAlunos() {
-		ModelAndView mView = new ModelAndView("aluno/paginaListaAlunos");
-		mView.addObject("alunos", alunoService.buscarTodosAlunos());
-		return mView;
-
 	}
 
 	@GetMapping("/cadastrar")
@@ -88,4 +100,10 @@ public class AlunoController {
 		alunoService.excluir(id);
 		return listaTodosAlunos();
 	}
+
+//	@GetMapping("/findByNomeStartWith/{inicio}/{fim}")
+//	public ResponseEntity<List<Aluno>> findByNomeStartWithAndEndWith(@PathVariable("inicio") String inicio,
+//			@PathVariable("fim") String fim) {
+//		return ResponseEntity.ok().body(alunoService.findAlunoStartWithAndEndWith(inicio, fim));
+//	}
 }
