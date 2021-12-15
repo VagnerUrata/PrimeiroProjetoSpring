@@ -1,11 +1,15 @@
 package br.com.primeiroprojetospring.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.primeiroprojetospring.domain.Carro;
@@ -15,7 +19,7 @@ import br.com.primeiroprojetospring.service.ChaveService;
 import br.com.primeiroprojetospring.service.DocumentoService;
 import br.com.primeiroprojetospring.service.FabricanteService;
 
-@Controller
+@RestController
 @RequestMapping("carro")
 public class CarroController {
 
@@ -43,6 +47,7 @@ public class CarroController {
 	}
 
 	@GetMapping("/cadastrar")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ModelAndView cadastrarCarro() {
 		ModelAndView mView = new ModelAndView("carro/cadastraCarro");
 		mView.addObject("carro", new Carro());
@@ -54,6 +59,7 @@ public class CarroController {
 	}
 
 	@PostMapping("/salvar")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ModelAndView salvarCarro(Carro carro) {
 		carroService.salvar(carro);
 		return listaTodosCarros();
@@ -82,5 +88,11 @@ public class CarroController {
 	public ModelAndView excluirChave(@PathVariable("id") Integer id) {
 		carroService.excluir(id);
 		return listaTodosCarros();
+	}
+	
+	@GetMapping("/buscarCarrosComTetoSolar")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<Carro>> buscarCarrosComTetoSolar() {
+		return ResponseEntity.ok().body(carroService.buscarCarrosComTetoSolar());
 	}
 }

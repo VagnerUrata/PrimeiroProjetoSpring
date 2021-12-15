@@ -60,4 +60,9 @@ public class CarroService {
 	public List<Carro> buscaCarrosPorIDchave(Integer idFabricante) {
 		return carroDAO.buscarCarroPorIdChave(idFabricante);
 	}
+	
+	public List<Carro> buscarCarrosComTetoSolar() {
+		return carroDAO.buscarCarrosComTetoSolar();
+	}
 }
+
